@@ -1,7 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:finalabanob/features/home/data/boob_model.dart';
+import 'package:finalabanob/features/home/data/book/book.dart';
+import 'package:finalabanob/features/home/data/book/datum.dart';
 import 'package:finalabanob/features/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:finalabanob/features/home/presentation/manager/cubit/home_state.dart';
+import 'package:finalabanob/features/search/data/search/datum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,7 +33,7 @@ class HomeView extends StatelessWidget {
 
 class HomeBuilder extends StatelessWidget {
   const HomeBuilder({super.key, this.book});
-  final BooksModel? book;
+  final Book? book;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +95,7 @@ class ProductGridView extends StatelessWidget {
     required this.home,
   });
 
-  final BooksModel home;
+  final Book home;
 
   @override
   Widget build(BuildContext context) {
@@ -143,15 +145,15 @@ class BuildGridProducts extends StatelessWidget {
                 width: double.infinity,
                 height: 200.0,
               ),
-              // if (product.discount != 0)
-              // Container(
-              //   color: Colors.red,
-              //   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              //   child: const Text(
-              //     'Discount',
-              //     style: TextStyle(fontSize: 8.0, color: Colors.white),
-              //   ),
-              // ),
+              if (books.newPrice != 0)
+              Container(
+                color: Colors.red,
+                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                child: const Text(
+                  'Discount',
+                  style: TextStyle(fontSize: 8.0, color: Colors.white),
+                ),
+              ),
             ],
           ),
           Padding(
@@ -172,17 +174,17 @@ class BuildGridProducts extends StatelessWidget {
                       style: const TextStyle(fontSize: 12.0),
 
                     ),
-                    // const SizedBox(
-                    //   width: 5.0,
-                    // ),
-                    // if (product.discount != 0)
-                    //   Text(
-                    //     '${product.oldPrice!.round()}',
-                    //     style: const TextStyle(
-                    //         fontSize: 10.0,
-                    //         color: Colors.grey,
-                    //         decoration: TextDecoration.lineThrough),
-                    //   ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    if (books.newPrice != 0)
+                      Text(
+                        '${books.price!.round()}',
+                        style: const TextStyle(
+                            fontSize: 10.0,
+                            color: Colors.grey,
+                            decoration: TextDecoration.lineThrough),
+                      ),
                     const Spacer(),
                     IconButton(
                       onPressed: () {},
