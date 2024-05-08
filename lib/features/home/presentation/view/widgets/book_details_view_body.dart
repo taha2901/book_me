@@ -1,4 +1,3 @@
-import 'package:finalabanob/features/home/data/book/book.dart';
 import 'package:finalabanob/features/home/data/book/datum.dart';
 import 'package:finalabanob/features/home/presentation/view/widgets/book_details_section.dart';
 import 'package:finalabanob/features/home/presentation/view/widgets/custom_book_details_app_bar.dart';
@@ -26,7 +25,6 @@ class BookDetailsViewBody extends StatelessWidget {
                   BookDetailsSection(
                     bookModel: bookModel,
                   ),
-                  
                 ],
               ),
             ),

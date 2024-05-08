@@ -36,7 +36,7 @@ class SouqLayout extends StatelessWidget {
                   onPressed: () {
                     signOut(context);
                   },
-                  icon: const Icon(Icons.logout_outlined     ),
+                  icon: const Icon(Icons.logout_outlined),
                 ),
               ],
             ),

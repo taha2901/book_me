@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:finalabanob/features/category/presentation/view/category.dart';
 import 'package:finalabanob/features/home/presentation/view/home.dart';
 import 'package:finalabanob/features/settings/presentation/view/settings.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,7 @@ class LayoutCubit extends Cubit<LayoutState> {
   int currentIndex = 0;
   List<Widget> screens = [
     const HomeView(),
-    const CategoryView(),
+    // const CategoryView(),
      SettingsView(),
   ];
 
@@ -28,10 +27,10 @@ class LayoutCubit extends Cubit<LayoutState> {
       icon: Icon(Icons.home),
       label: 'Home',
     ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.apps),
-      label: 'Categories',
-    ),
+    // const BottomNavigationBarItem(
+    //   icon: Icon(Icons.apps),
+    //   label: 'Categories',
+    // ),
     // const BottomNavigationBarItem(
     //   icon: Icon(Icons.favorite),
     //   label: 'Favorite',
