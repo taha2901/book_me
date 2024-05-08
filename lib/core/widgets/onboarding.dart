@@ -16,17 +16,20 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   final List<OnBoardingModel> board = [
     OnBoardingModel(
-        title: 'Welcome',
-        body: 'Lets Go Start Reading',
-        image: 'assets/1.png'),
+        title: 'E-Bookstore',
+        body:
+            'We are here to help you discover the wonderful world of books. Start your journey now and enjoy a unique reading experience.',
+        image: 'assets/1.jpg'),
     OnBoardingModel(
-        title: 'Here,',
-        body: 'There are alot of books',
-        image: 'assets/2.png'),
+        title: 'Choose your preferences,',
+        body:
+            'Tell us about your interests and choose the sections you would like to explore. We will provide you with the perfect books based on your preferences.',
+        image: 'assets/2.jpg'),
     OnBoardingModel(
-        title: 'this is bookly app',
-        body: 'Easy',
-        image: 'assets/3.png'),
+        title: 'journey of discovery',
+        body:
+            'Explore our wide range of books, search, review reviews, and choose the books you want to read. From suspense novels to science books, you\'ll find everything you\'re looking for here.',
+        image: 'assets/3.jpg'),
   ];
   bool islast = false;
   void submit() {
@@ -35,7 +38,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) =>  const LoginScreen(),
+            builder: (context) => const LoginScreen(),
           ),
           (route) => false,
         );
@@ -46,21 +49,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          TextButton(
-            onPressed: () {
-              submit();
-            },
-            child: const Text(
-              'SKIP',
-              // style: TextStyle(color: Colors.amberAccent),
-            ),
-          ),
-        ],
-      ),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(0.0),
         child: Column(
           children: [
             Expanded(
@@ -91,36 +81,48 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             const SizedBox(
               height: 40.0,
             ),
-            Row(
-              children: [
-                SmoothPageIndicator(
-                  controller: boardController,
-                  count: board.length,
-                  effect: const ExpandingDotsEffect(
-                    dotColor: Colors.grey,
-                    dotHeight: 10.0,
-                    expansionFactor: 4,
-                    dotWidth: 10,
-                    spacing: 5,
-                  ),
-                ),
-                const Spacer(),
-                FloatingActionButton(
-                  onPressed: () {
-                    if (islast) {
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                    onPressed: () {
                       submit();
-                    } else {
-                      boardController.nextPage(
-                        duration: const Duration(
-                          milliseconds: 750,
-                        ),
-                        curve: Curves.fastLinearToSlowEaseIn,
-                      );
-                    }
-                  },
-                  child: const Icon(Icons.arrow_forward_ios),
-                )
-              ],
+                    },
+                    child: const Text(
+                      'SKIP',
+                    ),
+                  ),
+                  SmoothPageIndicator(
+                    controller: boardController,
+                    count: board.length,
+                    effect: const ExpandingDotsEffect(
+                      dotColor: Colors.grey,
+                      dotHeight: 10.0,
+                      expansionFactor: 4,
+                      dotWidth: 10,
+                      spacing: 5,
+                    ),
+                  ),
+                  // const Spacer(),
+                  FloatingActionButton(
+                    onPressed: () {
+                      if (islast) {
+                        submit();
+                      } else {
+                        boardController.nextPage(
+                          duration: const Duration(
+                            milliseconds: 750,
+                          ),
+                          curve: Curves.fastLinearToSlowEaseIn,
+                        );
+                      }
+                    },
+                    child: const Icon(Icons.arrow_forward_ios),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -139,226 +141,79 @@ class OnBoardingModel {
 }
 
 // ignore: must_be_immutable
+class CurveClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+    path.lineTo(0, size.height - 50); // بداية القطع من أعلى يسار الصورة
+    path.quadraticBezierTo(size.width / 2.3, size.height, size.width, size.height - 60); // منحنى courve
+    path.lineTo(size.width, 0); // النهاية من أسفل يمين الصورة
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
 class BuildBoardingItem extends StatelessWidget {
   BuildBoardingItem({
     super.key,
     required this.board,
   });
 
-  OnBoardingModel board;
+  final OnBoardingModel board;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
       children: [
-        Expanded(
+        ClipPath(
+          clipper: CurveClipper(),
           child: Image(
+            height: MediaQuery.of(context).size.height / 2, 
+            width: double.infinity,
+            fit: BoxFit.cover,
             image: AssetImage(board.image),
           ),
         ),
-        Text(
-          board.title,
-          style: const TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
+        Positioned(
+          bottom: 110,
+          left: 0,
+          right: 0,
+          child: Container(
+            decoration: const BoxDecoration(
+              // color: Colors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16), 
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Text(
+                      board.title,
+                      style: const TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Text(
+                    board.body,
+                    style: const TextStyle(
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 20.0,
-        ),
-        Text(
-          board.body,
-          style: const TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(
-          height: 20.0,
         ),
       ],
     );
   }
 }
-
-
-
-
-// class OnBoardingScreen extends StatelessWidget {
-//   final Color kDarkBlueColor = const Color(0xFF053149);
-
-//   const OnBoardingScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return OnBoardingSlider(
-//       finishButtonText: 'Register',
-//       onFinish: () {
-//         ChachHelper.saveData(key: 'onBoarding', value: true).then((value) {
-//           if (value) {
-//             Navigator.push(
-//               context,
-//               CupertinoPageRoute(
-//                 builder: (context) => RegisterScreen(),
-//               ),
-//             );
-//           }
-//         });
-//       },
-
-//       finishButtonStyle: FinishButtonStyle(
-//         backgroundColor: kDarkBlueColor,
-//       ),
-//       skipTextButton: Text(
-//         'Skip',
-//         style: TextStyle(
-//           fontSize: 16,
-//           color: kDarkBlueColor,
-//           fontWeight: FontWeight.w600,
-//         ),
-//       ),
-//       trailing: Text(
-//         'Login',
-//         style: TextStyle(
-//           fontSize: 16,
-//           color: kDarkBlueColor,
-//           fontWeight: FontWeight.w600,
-//         ),
-//       ),
-//       trailingFunction: () {
-//         Navigator.push(
-//           context,
-//           CupertinoPageRoute(
-//             builder: (context) => LoginScreen(),
-//           ),
-//         );
-//       },
-//       controllerColor: kDarkBlueColor,
-//       totalPage: 3,
-//       headerBackgroundColor: Colors.white,
-//       pageBackgroundColor: Colors.white,
-//       background: [
-//         Image.asset(
-//           'assets/1.jpg',
-//           height: 400,
-//         ),
-//         Image.asset(
-//           'assets/2.jpg',
-//           height: 400,
-//         ),
-//         Image.asset(
-//           'assets/2.jpg',
-//           height: 400,
-//         ),
-//       ],
-//       speed: 1.8,
-//       pageBodies: [
-//         Container(
-//           alignment: Alignment.center,
-//           width: MediaQuery.of(context).size.width,
-//           padding: const EdgeInsets.symmetric(horizontal: 40),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: <Widget>[
-//               const SizedBox(
-//                 height: 480,
-//               ),
-//               Text(
-//                 'On your way...',
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                   color: kDarkBlueColor,
-//                   fontSize: 24.0,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//               const SizedBox(
-//                 height: 20,
-//               ),
-//               const Text(
-//                 'to find the perfect looking Onboarding for your app?',
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                   color: Colors.black26,
-//                   fontSize: 18.0,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//         Container(
-//           alignment: Alignment.center,
-//           width: MediaQuery.of(context).size.width,
-//           padding: const EdgeInsets.symmetric(horizontal: 40),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: <Widget>[
-//               const SizedBox(
-//                 height: 480,
-//               ),
-//               Text(
-//                 'You’ve reached your destination.',
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                   color: kDarkBlueColor,
-//                   fontSize: 24.0,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//               const SizedBox(
-//                 height: 20,
-//               ),
-//               const Text(
-//                 'Sliding with animation',
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                   color: Colors.black26,
-//                   fontSize: 18.0,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//         Container(
-//           alignment: Alignment.center,
-//           width: MediaQuery.of(context).size.width,
-//           padding: const EdgeInsets.symmetric(horizontal: 40),
-//           child: Column(
-//             mainAxisAlignment: MainAxisAlignment.start,
-//             crossAxisAlignment: CrossAxisAlignment.center,
-//             children: <Widget>[
-//               const SizedBox(
-//                 height: 480,
-//               ),
-//               Text(
-//                 'Start now!',
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                   color: kDarkBlueColor,
-//                   fontSize: 24.0,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//               const SizedBox(
-//                 height: 20,
-//               ),
-//               const Text(
-//                 'Where everything is possible and customize your onboarding.',
-//                 textAlign: TextAlign.center,
-//                 style: TextStyle(
-//                   color: Colors.black26,
-//                   fontSize: 18.0,
-//                   fontWeight: FontWeight.w600,
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ],
-//     );
-//   }
-// }

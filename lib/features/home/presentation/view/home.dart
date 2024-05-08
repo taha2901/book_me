@@ -47,8 +47,7 @@ class HomeBuilder extends StatelessWidget {
                   .map(
                     (e) => Image(
                       image: NetworkImage(
-                          '${e.cover ?? 'https://res.cloudinary.com/dswhy0qpi/image/upload/v1715001307/elkuryqdvod9sx21xnef.jpg'}' ??
-                              'https://res.cloudinary.com/dswhy0qpi/image/upload/v1715001307/elkuryqdvod9sx21xnef.jpg'),
+                          '${e.cover ?? 'https://res.cloudinary.com/dswhy0qpi/image/upload/v1715001307/elkuryqdvod9sx21xnef.jpg'}'),
                       width: double.infinity,
                       fit: BoxFit.fill,
                     ),

@@ -59,11 +59,11 @@ class RegisterScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                       Text(
                         'Register',
-                        style: Theme.of(context).textTheme.headline4!.copyWith(
-                              color: Colors.black,
-                            ),
+                        style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
                       ),
                       Text('Register now to browse our hot offers',
                           style: Theme.of(context)
