@@ -36,7 +36,7 @@ class RegisterScreen extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  const SouqLayout()
+                      builder: (context) =>   SouqLayout(name: state.registerModel.data!.user!.username,)
                     ),
                     (route) => false,
                   );

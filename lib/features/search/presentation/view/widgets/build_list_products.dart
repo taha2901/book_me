@@ -43,7 +43,7 @@ class BuildListProductsToSearch extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${search.price}',
+                        '${search.price} \$',
                         style: const TextStyle(
                             fontSize: 12.0, color: Colors.amber),
                       ),

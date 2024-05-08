@@ -1,12 +1,12 @@
 import 'package:finalabanob/features/layout/presentation/manager/layout_cubit/layout_cubit.dart';
-import 'package:finalabanob/features/search/data/search/search.dart';
 import 'package:finalabanob/features/search/presentation/view/search.dart';
 import 'package:finalabanob/features/settings/presentation/view/widget/custom_sign_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SouqLayout extends StatelessWidget {
-  const SouqLayout({super.key});
+   final String? name;
+  const SouqLayout({super.key,  this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,8 @@ class SouqLayout extends StatelessWidget {
           var cubit = LayoutCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Salla'),
+              // title: const Text('Salla'),
+              title: Text('Hi ${name} ' ?? 'salla'),
               actions: [
                 IconButton(
                   onPressed: () {

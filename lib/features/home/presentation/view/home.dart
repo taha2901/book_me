@@ -3,7 +3,7 @@ import 'package:finalabanob/features/home/data/book/book.dart';
 import 'package:finalabanob/features/home/data/book/datum.dart';
 import 'package:finalabanob/features/home/presentation/manager/cubit/home_cubit.dart';
 import 'package:finalabanob/features/home/presentation/manager/cubit/home_state.dart';
-import 'package:finalabanob/features/search/data/search/datum.dart';
+import 'package:finalabanob/features/home/presentation/view/widgets/book_details_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -132,79 +132,89 @@ class BuildGridProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).scaffoldBackgroundColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Stack(
-            alignment: AlignmentDirectional.bottomStart,
-            children: [
-              Image(
-                image: NetworkImage('${books.cover}'),
-                width: double.infinity,
-                height: 200.0,
-              ),
-              if (books.newPrice != 0)
-              Container(
-                color: Colors.red,
-                padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                child: const Text(
-                  'Discount',
-                  style: TextStyle(fontSize: 8.0, color: Colors.white),
-                ),
-              ),
-            ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BookDetailsViewBody(bookModel: books,),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        );
+      },
+      child: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Stack(
+              alignment: AlignmentDirectional.bottomStart,
               children: [
-                Text(
-                  '${books.description}',
-                  maxLines: 2,
-                  style: const TextStyle(fontSize: 14.0, height: 1.3),
-                  overflow: TextOverflow.ellipsis,
+                Image(
+                  image: NetworkImage('${books.cover}'),
+                  width: double.infinity,
+                  height: 200.0,
                 ),
-                Row(
-                  children: [
-                    Text(
-                      '${books.price!.round()} \$',
-                      style: const TextStyle(fontSize: 12.0),
-
-                    ),
-                    const SizedBox(
-                      width: 5.0,
-                    ),
-                    if (books.newPrice != 0)
-                      Text(
-                        '${books.price!.round()}',
-                        style: const TextStyle(
-                            fontSize: 10.0,
-                            color: Colors.grey,
-                            decoration: TextDecoration.lineThrough),
-                      ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const CircleAvatar(
-                        radius: 15.0,
-                        backgroundColor: Colors.grey,
-                        child: Icon(
-                          Icons.favorite_border,
-                          size: 16.0,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
+                if (books.newPrice != 0)
+                Container(
+                  color: Colors.red,
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: const Text(
+                    'Discount',
+                    style: TextStyle(fontSize: 8.0, color: Colors.white),
+                  ),
                 ),
               ],
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    '${books.description}',
+                    maxLines: 2,
+                    style: const TextStyle(fontSize: 14.0, height: 1.3),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        '${books.price!.round()} \$',
+                        style: const TextStyle(fontSize: 12.0),
+                      ),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      if (books.newPrice != 0)
+                        Text(
+                          '${books.newPrice!.round()} \$',
+                          style: const TextStyle(
+                              fontSize: 10.0,
+                              color: Colors.grey,
+                              decoration: TextDecoration.lineThrough),
+                        ),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const CircleAvatar(
+                          radius: 15.0,
+                          backgroundColor: Colors.grey,
+                          child: Icon(
+                            Icons.favorite_border,
+                            size: 16.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
