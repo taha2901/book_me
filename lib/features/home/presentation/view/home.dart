@@ -98,6 +98,8 @@ class ProductGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double aspectRatio = screenWidth / 2 / ((screenWidth / 2) * 1.60);
     return Container(
       // color: Theme.of(context).scaffoldBackgroundColor,
       color: Colors.black,
@@ -107,7 +109,7 @@ class ProductGridView extends StatelessWidget {
         crossAxisCount: 2,
         mainAxisSpacing: 1.0,
         crossAxisSpacing: 1.0,
-        childAspectRatio: 1 / 1.58,
+        childAspectRatio: aspectRatio,
         children: List.generate(
           home.data!.length,
           (index) => BuildGridProducts(
@@ -159,7 +161,7 @@ class BuildGridProducts extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '${books.title}',
+                  '${books.description}',
                   maxLines: 2,
                   style: const TextStyle(fontSize: 14.0, height: 1.3),
                   overflow: TextOverflow.ellipsis,
@@ -167,7 +169,7 @@ class BuildGridProducts extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      '${books.price!.round()}',
+                      '${books.price!.round()} \$',
                       style: const TextStyle(fontSize: 12.0),
 
                     ),
