@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:finalabanob/features/home/data/book/book.dart';
 import 'package:finalabanob/features/home/data/book/datum.dart';
 import 'package:finalabanob/features/home/presentation/manager/cubit/home_cubit.dart';
@@ -34,7 +33,6 @@ class HomeView extends StatelessWidget {
 class HomeBuilder extends StatelessWidget {
   const HomeBuilder({super.key, this.book});
   final Book? book;
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -42,30 +40,27 @@ class HomeBuilder extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Text(
+            'Popular Books',
+            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: CarouselSlider(
-              items: book?.data!
-                  .map(
-                    (e) => Image(
-                      image: NetworkImage(
-                          '${e.cover ?? 'https://res.cloudinary.com/dswhy0qpi/image/upload/v1715001307/elkuryqdvod9sx21xnef.jpg'}'),
-                      width: double.infinity,
-                      fit: BoxFit.fill,
-                    ),
-                  )
-                  .toList(),
-              options: CarouselOptions(
-                height: 250,
-                initialPage: 0,
-                viewportFraction: 1.0,
-                enableInfiniteScroll: true,
-                reverse: false,
-                autoPlay: true,
-                autoPlayInterval: const Duration(seconds: 3),
-                autoPlayAnimationDuration: const Duration(seconds: 1),
-                autoPlayCurve: Curves.fastOutSlowIn,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.25,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: book?.data?.length,
                 scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: Image.network('${book?.data?[index].cover}'),
+                  );
+                },
               ),
             ),
           ),
@@ -85,6 +80,25 @@ class HomeBuilder extends StatelessWidget {
           ProductGridView(home: book!),
         ],
       ),
+    );
+  }
+}
+
+class ShowingBooks extends StatelessWidget {
+  const ShowingBooks({
+    super.key,
+    required this.books,
+  });
+
+  final DataBooks? books;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Image.network('${books!.cover}'),
+        Text('${books!.title}'),
+      ],
     );
   }
 }
@@ -137,7 +151,9 @@ class BuildGridProducts extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => BookDetailsViewBody(bookModel: books,),
+            builder: (context) => BookDetailsViewBody(
+              bookModel: books,
+            ),
           ),
         );
       },
@@ -155,14 +171,14 @@ class BuildGridProducts extends StatelessWidget {
                   height: 200.0,
                 ),
                 if (books.newPrice != 0)
-                Container(
-                  color: Colors.red,
-                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: const Text(
-                    'Discount',
-                    style: TextStyle(fontSize: 8.0, color: Colors.white),
+                  Container(
+                    color: Colors.red,
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: const Text(
+                      'Discount',
+                      style: TextStyle(fontSize: 8.0, color: Colors.white),
+                    ),
                   ),
-                ),
               ],
             ),
             Padding(
@@ -217,4 +233,3 @@ class BuildGridProducts extends StatelessWidget {
     );
   }
 }
-
