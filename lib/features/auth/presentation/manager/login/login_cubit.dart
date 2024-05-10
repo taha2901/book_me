@@ -25,7 +25,7 @@ class LoginCubit extends Cubit<LoginState> {
     ).then((value) {
       print(value.data);
       loginModel = Auth.fromJson(value.data);
-      print('aaaaassssdddd${loginModel.data!.token}');
+      print('token in login issss${loginModel.data!.token}');
       print(loginModel.toString());
       emit(LoginSuccess(loginModel));
     }).catchError((onError) {

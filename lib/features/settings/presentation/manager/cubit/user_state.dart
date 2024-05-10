@@ -9,7 +9,7 @@ final class UserInitial extends UserState {}
 final class BooksLoadingUsersState extends UserState {}
 
 final class BooksSucessUsersState extends UserState {
-  final Profile userModel;
+  final Auth userModel;
 
   BooksSucessUsersState({required this.userModel});
 }

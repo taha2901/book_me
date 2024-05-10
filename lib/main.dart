@@ -1,6 +1,6 @@
 import 'package:finalabanob/core/helper/api.dart';
 import 'package:finalabanob/core/helper/cach.dart';
-import 'package:finalabanob/core/widgets/custom_show_toast.dart';
+import 'package:finalabanob/core/widgets/network.dart';
 import 'package:finalabanob/core/widgets/onboarding.dart';
 import 'package:finalabanob/features/auth/presentation/view/login.dart';
 import 'package:finalabanob/features/home/presentation/manager/cubit/home_cubit.dart';
@@ -15,14 +15,14 @@ void main() async {
   await ChachHelper.init();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
 
-  token = ChachHelper.getData(key: 'token');
-  print('tokennnn in main is $token');
+  userToken = ChachHelper.getData(key: 'token');
+  debugPrint('tokennnn in main is $userToken');
 
   Widget widget;
   bool? onBoarding = ChachHelper.getData(key: 'onBoarding');
 
   if (onBoarding != null) {
-    if (token != null) {
+    if (userToken != null) {
       widget = Container();
     } else {
       widget = const LoginScreen();
@@ -31,7 +31,7 @@ void main() async {
     widget = const OnBoardingScreen();
   }
   runApp(
-    MyApp(startWidget: widget, token: token, savedThemeMode: savedThemeMode),
+    MyApp(startWidget: widget, token: userToken, savedThemeMode: savedThemeMode),
   );
 }
 

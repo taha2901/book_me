@@ -2,6 +2,7 @@ import 'package:finalabanob/core/helper/cach.dart';
 import 'package:finalabanob/core/widgets/custom_button.dart';
 import 'package:finalabanob/core/widgets/custom_show_toast.dart';
 import 'package:finalabanob/core/widgets/custom_text_form_field.dart';
+import 'package:finalabanob/core/widgets/network.dart';
 import 'package:finalabanob/features/auth/presentation/manager/login/login_cubit.dart';
 import 'package:finalabanob/features/auth/presentation/manager/login/login_state.dart';
 import 'package:finalabanob/features/auth/presentation/view/register.dart';
@@ -23,11 +24,7 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LoginSuccess) {
             if (state.loginModel.success == true) {
-              print(state.loginModel.success);
-              print(state.loginModel.data!.token);
-              print(state.loginModel.data!.user!.email);
-
-                   token = state.loginModel.data?.token;
+              userToken = state.loginModel.data!.token;
               ChachHelper.saveData(
                       key: 'token', value: state.loginModel.data?.token)
                   .then(
@@ -35,9 +32,9 @@ class LoginScreen extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SouqLayout(name: '${state.loginModel.data!.user!.username}',)
-                      
-                    ),
+                        builder: (context) => SouqLayout(
+                              name: '${state.loginModel.data!.user!.username}',
+                            )),
                     (route) => false,
                   );
                 },
@@ -62,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                       Text(
                         'Login',
                         style: Theme.of(context).textTheme.headline4!.copyWith(
-                              // color: Colors.black,
+                            // color: Colors.black,
                             ),
                       ),
                       Text('Login now to browse our hot offers',

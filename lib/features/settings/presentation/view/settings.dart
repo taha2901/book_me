@@ -2,6 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:finalabanob/core/widgets/custom_button.dart';
 import 'package:finalabanob/core/widgets/custom_field.dart';
 import 'package:finalabanob/features/settings/presentation/manager/cubit/user_cubit.dart';
+// import 'package:finalabanob/features/home/presentation/manager/cubit/home_cubit.dart';
+// import 'package:finalabanob/features/home/presentation/manager/cubit/home_state.dart';
 import 'package:finalabanob/features/settings/presentation/view/widget/custom_sign_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,22 +17,16 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return BlocConsumer<UserCubit, UserState>(
-      listener: (context, state) {
-        // var model = UserCubit.get(context).usersModel;
-        // if (state is BooksSucessUsersState) {
-        //   nameController.text = '${state.userModel.data!.user!.username}';
-        //   emailController.text = '${state.userModel.data!.user!.email}';
-        // }
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         var model = UserCubit.get(context).usersModel;
         if (model != null) {
-          nameController.text = '${model.data!.user?.username}';
-          emailController.text = '${model.data!.user?.email}';
+          nameController.text = '${model.data!.user!.username}';
+          emailController.text = '${model.data!.user!.email}';
         }
         return ConditionalBuilder(
           condition: model != null,
-          builder: (context) => Padding(
+          builder: (context) =>  Padding(
             padding: const EdgeInsets.all(20.0),
             child: Form(
               key: formKey,
