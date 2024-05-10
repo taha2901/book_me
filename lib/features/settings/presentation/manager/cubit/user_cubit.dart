@@ -16,10 +16,10 @@ class UserCubit extends Cubit<UserState> {
   Profile? usersModel;
 
   void getUsersData() {
-    DioHelper().getData(url: PROFILE, token: token).then((value) {
-      emit(BooksLoadingUsersState());
+    emit(BooksLoadingUsersState());
+    DioHelper().getData(url: PROFILE, token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzdmYjRkZGUyMjIwNmExNGY3OTVmOSIsImlhdCI6MTcxNTM1NDUyNSwiZXhwIjoxNzE3OTQ2NTI1fQ.yGiFH07PoZ1NQ-pL6SpD3H4YvT4sQhw9VGi4ZSpIuLM').then((value) {
       print('sdfdslfldsf${usersModel!.data!.user!.email}');
-      // print('token in user cubit issssssss=> ${token}')
+      print('token in user cubit issssssss=> ${token}');
       usersModel = Profile.fromJson(value.data);
       printFullText(
           'this is data data data data data ======>>>>>>> ${usersModel!.data!.user!.username}');

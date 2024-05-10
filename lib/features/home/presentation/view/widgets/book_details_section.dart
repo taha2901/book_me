@@ -45,6 +45,7 @@ class BookDetailsSection extends StatelessWidget {
           height: 16,
         ),
         Text(
+          textAlign: TextAlign.end,
           '${bookModel.author!.bio}',
           style: const TextStyle(fontSize: 16, color: Colors.grey),
           maxLines: 3,

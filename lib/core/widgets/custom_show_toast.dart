@@ -31,5 +31,5 @@ Color chooseToastColor(ToastStates state){
   return color;
 }
 
-String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzdmYjU1ZGUyMjIwNmExNGY3OTYwMCIsImlhdCI6MTcxNTEyNDk0MiwiZXhwIjoxNzE3NzE2OTQyfQ.01CWOLMvB_e-iC3yk2LXR9a4RIY40B9HHxdw_jR32oY';
+String? token = '';
 

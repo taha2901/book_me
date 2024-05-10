@@ -27,15 +27,15 @@ class LoginScreen extends StatelessWidget {
               print(state.loginModel.data!.token);
               print(state.loginModel.data!.user!.email);
 
+                   token = state.loginModel.data?.token;
               ChachHelper.saveData(
-                      key: 'token', value: state.loginModel.data!.token)
+                      key: 'token', value: state.loginModel.data?.token)
                   .then(
                 (value) {
-                  String token = '${state.loginModel.data!.token}';
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>   SouqLayout(name: '${state.loginModel.data!.user!.username}',)
+                      builder: (context) => SouqLayout(name: '${state.loginModel.data!.user!.username}',)
                       
                     ),
                     (route) => false,
