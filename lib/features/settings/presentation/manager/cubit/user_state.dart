@@ -1,6 +1,6 @@
-part of 'user_cubit.dart';
 
-@immutable
+import 'package:finalabanob/features/auth/data/auth/auth.dart';
+
 sealed class UserState {}
 
 final class UserInitial extends UserState {}
@@ -9,20 +9,24 @@ final class UserInitial extends UserState {}
 final class BooksLoadingUsersState extends UserState {}
 
 final class BooksSucessUsersState extends UserState {
-  final Auth userModel;
+  final Auth? userModel;
 
-  BooksSucessUsersState({required this.userModel});
+  BooksSucessUsersState({ this.userModel});
 }
 
-final class BooksErrorUsersState extends UserState {}
+final class BooksErrorUsersState extends UserState {
+  final String? errMessage;
+
+  BooksErrorUsersState({required this.errMessage});
+}
 
 
-// final class BooksLoadingUpdateState extends UserState {}
+final class BooksLoadingUpdateState extends UserState {}
 
-// final class BooksSucessUpdateState extends UserState {
-//   final Auth loginModel;
+final class BooksSucessUpdateState extends UserState {
+  final Auth loginModel;
 
-//   BooksSucessUpdateState({required this.loginModel});
-// }
+  BooksSucessUpdateState({required this.loginModel});
+}
 
-// final class BooksErrorUpdateState extends UserState {}
+final class BooksErrorUpdateState extends UserState {}

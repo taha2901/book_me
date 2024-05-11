@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:finalabanob/core/helper/api.dart';
 import 'package:finalabanob/core/widgets/network.dart';
-import 'package:finalabanob/features/auth/data/auth_login/auth.dart';
-import 'package:finalabanob/features/auth/data/auth_register/register_model.dart';
+import 'package:finalabanob/features/auth/data/auth/auth.dart';
 import 'package:finalabanob/features/auth/presentation/manager/register/register_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +15,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String email,
     required String password,
   }) {
-    RegisterModel registerModel;
+    Auth registerModel;
     emit(RegisterLoaded());
     DioHelper().postData(
       url: REGISTER,
@@ -27,7 +26,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       },
     ).then((value) {
       print(value.data);
-      registerModel = RegisterModel.fromJson(value.data);
+      registerModel = Auth.fromJson(value.data);
       print(registerModel.toString());
       emit(RegisterSuccess(registerModel: registerModel));
     }).catchError((onError) {

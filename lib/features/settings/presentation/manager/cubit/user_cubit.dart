@@ -1,31 +1,49 @@
+import 'package:finalabanob/features/auth/data/auth/auth.dart';
+import 'package:finalabanob/features/settings/presentation/manager/cubit/user_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:finalabanob/core/helper/api.dart';
 import 'package:finalabanob/core/widgets/custom_print_full_text_method.dart';
 import 'package:finalabanob/core/widgets/network.dart';
-import 'package:finalabanob/features/auth/data/auth_login/auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
-
-part 'user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit() : super(UserInitial());
   static UserCubit get(context) => BlocProvider.of(context);
 
-  Auth? usersModel;
+  Auth? profileData;
 
   void getUsersData() {
-    emit(BooksLoadingUsersState());
     DioHelper().getData(url: PROFILE, token: 'Bearer $userToken').then((value) {
-      print('sdfdslfldsf${usersModel!.data!.user!.email}');
-      print('token in user cubit issssssss=> ${usersModel}');
-      usersModel = Auth.fromJson(value.data);
+      profileData = Auth.fromJson(value.data);
+      emit(BooksSucessUsersState(userModel: profileData!));
+      print('State in user cubit issssssss=> ${profileData!.success}');
       printFullText(
-          'this is data data data data data ======>>>>>>> ${usersModel?.data?.user?.username}');
-      emit(BooksSucessUsersState(userModel: usersModel!));
+          'this is data data data data data ======>>>>>>> ${profileData?.data?.user?.username}');
     }).catchError((onError) {
       print(onError.toString());
-      emit(BooksErrorUsersState());
+      emit(BooksErrorUsersState(errMessage: onError.toString()));
+    });
+  }
+
+  
+  void updateUserData({
+    required String name,
+    required String email,
+  }) {
+    emit(BooksSucessUpdateState(loginModel: profileData!));
+    DioHelper().putData(url: UPDATE_PROFILE, token: 'Bearer $userToken', data: {
+      'name': name,
+      'email': email,
+    }).then((value) {
+      profileData = Auth.fromJson(value.data);
+      printFullText(
+          'this is data data data data data ======>>>>>>> ${profileData!.data}');
+      emit(BooksSucessUpdateState(loginModel: profileData!));
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(BooksErrorUpdateState());
     });
   }
 }
+
+

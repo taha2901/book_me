@@ -1,4 +1,4 @@
-import 'package:finalabanob/features/auth/data/auth_login/auth.dart';
+import 'package:finalabanob/features/auth/data/auth/auth.dart';
 
 sealed class LoginState {}
 

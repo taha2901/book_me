@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:finalabanob/core/helper/api.dart';
 import 'package:finalabanob/core/widgets/network.dart';
-import 'package:finalabanob/features/auth/data/auth_login/auth.dart';
+import 'package:finalabanob/features/auth/data/auth/auth.dart';
 import 'package:finalabanob/features/auth/presentation/manager/login/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

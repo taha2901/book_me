@@ -1,5 +1,5 @@
 
-import 'package:finalabanob/features/auth/data/auth_login/auth.dart';
+import 'package:finalabanob/features/auth/data/auth/auth.dart';
 import 'package:flutter/material.dart';
 
 // @immutable

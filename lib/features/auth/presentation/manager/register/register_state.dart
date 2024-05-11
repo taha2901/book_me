@@ -1,5 +1,5 @@
 
-import 'package:finalabanob/features/auth/data/auth_register/register_model.dart';
+import 'package:finalabanob/features/auth/data/auth/auth.dart';
 
 sealed class RegisterState {}
 
@@ -8,7 +8,7 @@ final class RegisterInitial extends RegisterState {}
 final class RegisterLoaded extends RegisterState {}
 
 final class RegisterSuccess extends RegisterState {
-  final RegisterModel registerModel;
+  final Auth registerModel;
 
   RegisterSuccess({required this.registerModel});
 }

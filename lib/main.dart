@@ -4,6 +4,7 @@ import 'package:finalabanob/core/widgets/network.dart';
 import 'package:finalabanob/core/widgets/onboarding.dart';
 import 'package:finalabanob/features/auth/presentation/view/login.dart';
 import 'package:finalabanob/features/home/presentation/manager/cubit/home_cubit.dart';
+import 'package:finalabanob/features/layout/presentation/view/souq_layout.dart';
 import 'package:finalabanob/features/settings/presentation/manager/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +24,7 @@ void main() async {
 
   if (onBoarding != null) {
     if (userToken != null) {
-      widget = Container();
+      widget = const SouqLayout();
     } else {
       widget = const LoginScreen();
     }

@@ -2,8 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:finalabanob/core/widgets/custom_button.dart';
 import 'package:finalabanob/core/widgets/custom_field.dart';
 import 'package:finalabanob/features/settings/presentation/manager/cubit/user_cubit.dart';
-// import 'package:finalabanob/features/home/presentation/manager/cubit/home_cubit.dart';
-// import 'package:finalabanob/features/home/presentation/manager/cubit/home_state.dart';
+import 'package:finalabanob/features/settings/presentation/manager/cubit/user_state.dart';
 import 'package:finalabanob/features/settings/presentation/view/widget/custom_sign_out.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,24 +16,31 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return BlocConsumer<UserCubit, UserState>(
-      listener: (context, state) {},
-      builder: (context, state) {
-        var model = UserCubit.get(context).usersModel;
-        if (model != null) {
-          nameController.text = '${model.data!.user!.username}';
-          emailController.text = '${model.data!.user!.email}';
+      listener: (context, state) {
+         if (state is BooksSucessUsersState) {
+          nameController.text = state.userModel?.data?.user?.username ?? '';
+          emailController.text = state.userModel?.data?.user?.email ?? '';
         }
+      },
+      builder: (context, state) {
+        var model = UserCubit.get(context).profileData;
+    
+        // if (model != null) {
+        //   nameController.text = '${model.data!.user!.username}';
+        //   emailController.text = '${model.data!.user!.email}';
+        // }
         return ConditionalBuilder(
-          condition: model != null,
-          builder: (context) =>  Padding(
+          // condition: model != null,
+          condition:  state is BooksSucessUsersState,
+          builder: (context) => Padding(
             padding: const EdgeInsets.all(20.0),
             child: Form(
               key: formKey,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    // if (state is BooksLoadingUpdateState)
-                    //   const LinearProgressIndicator(),
+                    if (state is BooksLoadingUpdateState)
+                      const LinearProgressIndicator(),
                     const SizedBox(
                       height: 20,
                     ),
@@ -90,11 +96,10 @@ class SettingsView extends StatelessWidget {
                       circular: 10.0,
                       onTap: () {
                         if (formKey.currentState!.validate()) {
-                          // UserCubit.get(context).updateUserData(
-                          //   name: nameController.text,
-                          //   phone: phoneController.text,
-                          //   email: emailController.text,
-                          // );
+                          UserCubit.get(context).updateUserData(
+                            name: nameController.text,
+                            email: emailController.text,
+                          );
                         }
                       },
                     ),

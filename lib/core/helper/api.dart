@@ -18,7 +18,7 @@ class DioHelper {
     String? token,
   }) async {
     dio!.options.headers = {
-      'Content-Type': 'application/json; charset=utf-8',
+      'Content-Type': 'application/json',
       'lang': lang,
       'Authorization': token ,
     };
