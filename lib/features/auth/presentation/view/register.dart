@@ -14,7 +14,6 @@ class RegisterScreen extends StatelessWidget {
   var emailController = TextEditingController();
   var passWordController = TextEditingController();
   var nameController = TextEditingController();
-  var phoneController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -25,10 +24,6 @@ class RegisterScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is RegisterSuccess) {
             if (state.registerModel.success == true) {
-              print(state.registerModel.success);
-              print(state.registerModel.data!.token);
-              print(state.registerModel.data!.user!.email);
-
               ChachHelper.saveData(
                       key: 'token', value: state.registerModel.data!.token)
                   .then(
@@ -90,7 +85,6 @@ class RegisterScreen extends StatelessWidget {
                         onSubmitted: (value) {
                           emailController.text = value;
                         },
-                        // type: TextInputType.emailAddress,
                       ),
                       const SizedBox(
                         height: 15.0,
@@ -108,18 +102,6 @@ class RegisterScreen extends StatelessWidget {
                           RegisterCubit.get(context).changePasswordVisibility();
                         },
                       ),
-                      // const SizedBox(
-                      //   height: 15.0,
-                      // ),
-                      // CustomTextField(
-                      //   hint: 'phone',
-                      //   prefixIcon: const Icon(Icons.person),
-                      //   controller: phoneController,
-                      //   onSubmitted: (value) {
-                      //     phoneController.text = value;
-                      //   },
-                      //   // type: TextInputType.name,
-                      // ),
                       const SizedBox(
                         height: 30.0,
                       ),
@@ -138,7 +120,6 @@ class RegisterScreen extends StatelessWidget {
                                     username: nameController.text,
                                     email: emailController.text,
                                     password: passWordController.text,
-                                    phone: phoneController.text,
                                   );
                                 }
                               },

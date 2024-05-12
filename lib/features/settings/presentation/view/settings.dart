@@ -11,7 +11,6 @@ class SettingsView extends StatelessWidget {
   SettingsView({super.key});
   var nameController = TextEditingController();
   var emailController = TextEditingController();
-  // var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +20,11 @@ class SettingsView extends StatelessWidget {
         if (state is BooksSucessUsersState) {
           nameController.text = state.userModel?.data?.user?.username ?? '';
           emailController.text = state.userModel?.data?.user?.email ?? '';
-          // phoneController.text = state.userModel?.data?.user?.phone ?? '';
         }
       },
       builder: (context, state) {
         var model = UserCubit.get(context).profileData;
-
-        // if (model != null) {
-        //   nameController.text = '${model.data!.user!.username}';
-        //   emailController.text = '${model.data!.user!.email}';
-        // }
         return ConditionalBuilder(
-          // condition: model != null,
           condition: state is BooksSucessUsersState,
           builder: (context) => Padding(
             padding: const EdgeInsets.all(20.0),
@@ -76,18 +68,6 @@ class SettingsView extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    // defaultFormField(
-                    //   controller: phoneController,
-                    //   label: 'Enter phone',
-                    //   prefix: Icons.phone,
-                    //   type: TextInputType.phone,
-                    //   validator: (value) {
-                    //     if (value!.isEmpty) {
-                    //       return 'phone must be not empty';
-                    //     }
-                    //     return null;
-                    //   },
-                    // ),
                     const SizedBox(
                       height: 20,
                     ),
