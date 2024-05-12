@@ -34,7 +34,7 @@ class BuildListProductsToSearch extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${search.author}',
+                    '${search.description}',
                     maxLines: 2,
                     style: const TextStyle(fontSize: 14.0, height: 1.3),
                     overflow: TextOverflow.ellipsis,
