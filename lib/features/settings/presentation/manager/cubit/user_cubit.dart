@@ -25,20 +25,18 @@ class UserCubit extends Cubit<UserState> {
     });
   }
 
-  
+  Auth? profileUpdateData;
   void updateUserData({
     required String name,
     required String email,
   }) {
-    emit(BooksSucessUpdateState(loginModel: profileData!));
+    emit(BooksLoadingUpdateState());
     DioHelper().putData(url: UPDATE_PROFILE, token: 'Bearer $userToken', data: {
-      'name': name,
+      'username': name,
       'email': email,
     }).then((value) {
-      profileData = Auth.fromJson(value.data);
-      printFullText(
-          'this is data data data data data ======>>>>>>> ${profileData!.data}');
-      emit(BooksSucessUpdateState(loginModel: profileData!));
+      profileUpdateData = Auth.fromJson(value.data);
+      emit(BooksSucessUpdateState(loginModel: profileUpdateData!));
     }).catchError((onError) {
       print(onError.toString());
       emit(BooksErrorUpdateState());

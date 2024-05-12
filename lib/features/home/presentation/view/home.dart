@@ -70,7 +70,7 @@ class HomeBuilder extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text(
-              'Books',
+              'Newest Books',
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
           ),

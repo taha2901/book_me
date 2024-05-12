@@ -14,6 +14,7 @@ class RegisterScreen extends StatelessWidget {
   var emailController = TextEditingController();
   var passWordController = TextEditingController();
   var nameController = TextEditingController();
+  var phoneController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -36,8 +37,9 @@ class RegisterScreen extends StatelessWidget {
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>   SouqLayout(name: state.registerModel.data!.user!.username,)
-                    ),
+                        builder: (context) => SouqLayout(
+                              name: state.registerModel.data!.user!.username,
+                            )),
                     (route) => false,
                   );
                 },
@@ -59,12 +61,8 @@ class RegisterScreen extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       Text(
-                        'Register',
-                        style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                      ),
+                      Text('Register',
+                          style: Theme.of(context).textTheme.bodyLarge),
                       Text('Register now to browse our hot offers',
                           style: Theme.of(context)
                               .textTheme
@@ -110,6 +108,18 @@ class RegisterScreen extends StatelessWidget {
                           RegisterCubit.get(context).changePasswordVisibility();
                         },
                       ),
+                      // const SizedBox(
+                      //   height: 15.0,
+                      // ),
+                      // CustomTextField(
+                      //   hint: 'phone',
+                      //   prefixIcon: const Icon(Icons.person),
+                      //   controller: phoneController,
+                      //   onSubmitted: (value) {
+                      //     phoneController.text = value;
+                      //   },
+                      //   // type: TextInputType.name,
+                      // ),
                       const SizedBox(
                         height: 30.0,
                       ),
@@ -125,9 +135,11 @@ class RegisterScreen extends StatelessWidget {
                               onTap: () {
                                 if (formKey.currentState!.validate()) {
                                   RegisterCubit.get(context).userRegister(
-                                      username: nameController.text,
-                                      email: emailController.text,
-                                      password: passWordController.text);
+                                    username: nameController.text,
+                                    email: emailController.text,
+                                    password: passWordController.text,
+                                    phone: phoneController.text,
+                                  );
                                 }
                               },
                             ),

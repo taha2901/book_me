@@ -14,6 +14,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String username,
     required String email,
     required String password,
+    required String phone,
   }) {
     Auth registerModel;
     emit(RegisterLoaded());
@@ -23,6 +24,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         'username': username,
         'email': email,
         'password': password,
+        'phone':phone,
       },
     ).then((value) {
       print(value.data);
